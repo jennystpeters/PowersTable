@@ -4,7 +4,9 @@ import java.lang.Math;
 public class Lab3 {
 
     //Square each number in the array (1 to number entered)
-    public static int[] squared(int[] numberSquared, int numberEntered) {
+    public static int[] squared(int numberEntered) {
+
+        int[] numberSquared = new int[numberEntered];
 
         for (int i = 0; i < numberEntered; ++i) {
             numberSquared[i] = (int) Math.pow((double) (i + 1), 2);
@@ -14,7 +16,9 @@ public class Lab3 {
     }
 
     //Cube each number in the array (1 to number entered)
-    public static int[] cubed(int[] numberCubed, int numberEntered) {
+    public static int[] cubed(int numberEntered) {
+
+        int[] numberCubed = new int[numberEntered];
 
         for (int i = 0; i < numberEntered; ++i) {
             numberCubed[i] = (int) Math.pow((double) (i + 1), 3);
@@ -26,9 +30,11 @@ public class Lab3 {
     //Display a table of powers
     public static void main(String[] args) {
 
-        System.out.println("Learn your squares and cubes!");
+        System.out.println("Learn your squares and cubes!\n");
 
-        final int MAX_INT = 2147483647;
+        //FIX ME: You could also use the cube root of Integer.MAX_VALUE on line 31
+        //Math.cbrt(Integer.MAX_VALUE);
+        final int MAX_INPUT = (int) Math.floor(Math.cbrt(Integer.MAX_VALUE));
         char keepGoing = 'y';
         Scanner entry = new Scanner(System.in);
 
@@ -40,16 +46,15 @@ public class Lab3 {
             int baseNumber = entry.nextInt();
 
             //Limit the user to prevent cubed values over a maximum integer
-            if(Math.pow((double) (baseNumber), 3) >= MAX_INT){
+            //if(Math.pow((double) (baseNumber), 3) > MAX_INT){
+            if (baseNumber > MAX_INPUT) {
                 System.out.print("Please choose a lower number: ");
                 baseNumber = entry.nextInt();
             }
 
-            int[] squaredNumbers = new int[baseNumber];
-            int[] cubedNumbers = new int[baseNumber];
-
-            squared(squaredNumbers, baseNumber);
-            cubed(cubedNumbers, baseNumber);
+            //Assigning the return value of the squared & cubed methods to the int arrays
+            int[] squaredNumbers = squared(baseNumber);
+            int[] cubedNumbers = cubed(baseNumber);
 
             //Display a table of squares and cubes from 1 to the value entered (used %-10s to align left)
             System.out.printf("%-10s %-10s %-10s %n", "Number", "Squared", "Cubed");
